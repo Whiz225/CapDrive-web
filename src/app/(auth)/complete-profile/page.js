@@ -263,7 +263,7 @@ export default function CompleteProfilePage() {
                 <input
                   {...register("address", { required: "Address is required" })}
                   type="text"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="123 Main St"
                 />
                 {errors.address && (
@@ -280,7 +280,7 @@ export default function CompleteProfilePage() {
                 <input
                   {...register("city", { required: "City is required" })}
                   type="text"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Lagos"
                 />
                 {errors.city && (
@@ -297,7 +297,7 @@ export default function CompleteProfilePage() {
                 <input
                   {...register("state", { required: "State is required" })}
                   type="text"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Lagos"
                 />
                 {errors.state && (
@@ -314,7 +314,7 @@ export default function CompleteProfilePage() {
                 <input
                   {...register("country")}
                   type="text"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Nigeria"
                 />
               </div>
@@ -326,7 +326,7 @@ export default function CompleteProfilePage() {
                 <input
                   {...register("zipCode")}
                   type="text"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="100001"
                 />
               </div>
@@ -348,7 +348,7 @@ export default function CompleteProfilePage() {
                         required: isDealer ? "Company name is required" : false,
                       })}
                       type="text"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       placeholder="Premium Cars Ltd"
                     />
                     {errors.companyName && (
@@ -369,7 +369,7 @@ export default function CompleteProfilePage() {
                           : false,
                       })}
                       type="text"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       placeholder="456 Business Ave"
                     />
                     {errors.companyAddress && (
@@ -385,7 +385,7 @@ export default function CompleteProfilePage() {
                     </label>
                     <select
                       {...register("dealerType")}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     >
                       <option value="individual">Individual</option>
                       <option value="dealership">Dealership</option>
@@ -401,7 +401,7 @@ export default function CompleteProfilePage() {
                     <input
                       {...register("businessRegistration")}
                       type="text"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       placeholder="RC Number"
                     />
                   </div>
@@ -418,7 +418,7 @@ export default function CompleteProfilePage() {
                     type="checkbox"
                     checked={agreeToTerms}
                     onChange={(e) => setAgreeToTerms(e.target.checked)}
-                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded mt-0.5"
+                    className="h-4 w-4 text-gray-900/80 focus:ring-primary-500 border-gray-300 rounded mt-0.5"
                   />
                 </div>
                 <div className="ml-3">
