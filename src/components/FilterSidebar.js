@@ -26,7 +26,6 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Remove empty values
     const cleanedFilters = Object.fromEntries(
       Object.entries(filters).filter(
         ([_, value]) => value !== "" && value !== null && value !== undefined
@@ -74,13 +73,15 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
   );
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6 sticky top-20">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Filters</h3>
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 sticky top-20 border border-gray-200 dark:border-gray-700">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        Filters
+      </h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Make */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Make
           </label>
           <input
@@ -89,13 +90,13 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
             value={filters.make}
             onChange={handleChange}
             placeholder="e.g., Toyota"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
           />
         </div>
 
         {/* Model */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Model
           </label>
           <input
@@ -104,13 +105,13 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
             value={filters.model}
             onChange={handleChange}
             placeholder="e.g., Camry"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
           />
         </div>
 
         {/* Price Range */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Price Range
           </label>
           <div className="flex gap-2">
@@ -120,7 +121,7 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
               value={filters.minPrice}
               onChange={handleChange}
               placeholder="Min"
-              className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-1/2 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
             />
             <input
               type="number"
@@ -128,21 +129,21 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
               value={filters.maxPrice}
               onChange={handleChange}
               placeholder="Max"
-              className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-1/2 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
             />
           </div>
         </div>
 
         {/* Year */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Year
           </label>
           <select
             name="year"
             value={filters.year}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           >
             <option value="">Any Year</option>
             {years.map((year) => (
@@ -155,14 +156,14 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
 
         {/* Condition */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Condition
           </label>
           <select
             name="condition"
             value={filters.condition}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           >
             <option value="">Any Condition</option>
             {conditions.map((condition) => (
@@ -175,14 +176,14 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
 
         {/* Transmission */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Transmission
           </label>
           <select
             name="transmission"
             value={filters.transmission}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           >
             <option value="">Any Transmission</option>
             {transmissions.map((trans) => (
@@ -195,14 +196,14 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
 
         {/* Fuel Type */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Fuel Type
           </label>
           <select
             name="fuelType"
             value={filters.fuelType}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           >
             <option value="">Any Fuel</option>
             {fuelTypes.map((fuel) => (
@@ -215,14 +216,14 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
 
         {/* Body Type */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Body Type
           </label>
           <select
             name="bodyType"
             value={filters.bodyType}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           >
             <option value="">Any Body Type</option>
             {bodyTypes.map((type) => (
@@ -235,7 +236,7 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
 
         {/* Location */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Location
           </label>
           <input
@@ -244,7 +245,7 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
             value={filters.city}
             onChange={handleChange}
             placeholder="City"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent mb-2"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 mb-2"
           />
           <input
             type="text"
@@ -252,7 +253,7 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
             value={filters.state}
             onChange={handleChange}
             placeholder="State"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
           />
         </div>
 
@@ -260,14 +261,14 @@ const FilterSidebar = ({ onFilterChange, initialFilters = {} }) => {
         <div className="flex gap-2 pt-4">
           <button
             type="submit"
-            className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition-colors"
+            className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
           >
             Apply Filters
           </button>
           <button
             type="button"
             onClick={handleReset}
-            className="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors"
+            className="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm font-medium"
           >
             Reset
           </button>
