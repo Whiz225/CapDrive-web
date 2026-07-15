@@ -15,13 +15,19 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
+    clearErrors,
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
   const { setAuth } = useAuthStore();
 
   const onSubmit = async (data) => {
+    setApiError("");
+    clearErrors();
+
     try {
       setIsLoading(true);
       const response = await authAPI.login(data);
@@ -31,13 +37,11 @@ export default function LoginPage() {
         setAuth(user, token, refreshToken);
         toast.success("Login successful!");
 
-        // Redirect based on verification status
         if (!user.profileCompleted) {
           router.push("/complete-profile");
         } else if (!user.isEmailVerified || !user.isPhoneVerified) {
           router.push("/verify");
         } else {
-          // Redirect based on role
           if (user.role === "admin") {
             router.push("/admin");
           } else if (user.role === "dealer") {
@@ -48,7 +52,19 @@ export default function LoginPage() {
         }
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Login failed");
+      const errorMessage =
+        error.response?.data?.message || "Login failed. Please try again.";
+      setApiError(errorMessage);
+
+      if (
+        errorMessage.toLowerCase().includes("email") ||
+        errorMessage.toLowerCase().includes("credentials")
+      ) {
+        setError("email", {
+          type: "server",
+          message: errorMessage,
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -56,8 +72,14 @@ export default function LoginPage() {
 
   const handleGoogleLogin = () => {
     setIsGoogleLoading(true);
-    // Redirect to Google OAuth
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+    const baseUrl = apiUrl.replace("/api", "");
+    window.location.href = `${baseUrl}/api/auth/google`;
+  };
+
+  const handleInputChange = () => {
+    if (apiError) setApiError("");
   };
 
   return (
@@ -71,6 +93,15 @@ export default function LoginPage() {
             Sign in to your account
           </p>
         </div>
+
+        {/* Error Message */}
+        {apiError && (
+          <div className="text-center">
+            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+              {apiError}
+            </p>
+          </div>
+        )}
 
         {/* Google Sign In Button */}
         <button
@@ -133,7 +164,6 @@ export default function LoginPage() {
           )}
         </button>
 
-        {/* Divider */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300"></div>
@@ -145,13 +175,14 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="mt-8 space-y-6"
+          onSubmit={handleSubmit(onSubmit)}
+          onChange={handleInputChange}
+        >
           <div className="space-y-4">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label className="block text-sm font-medium text-gray-700">
                 Email address
               </label>
               <input
@@ -163,7 +194,6 @@ export default function LoginPage() {
                   },
                 })}
                 type="email"
-                autoComplete="email"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 placeholder="you@example.com"
               />
@@ -175,10 +205,7 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label className="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <div className="mt-1 relative">
@@ -191,7 +218,6 @@ export default function LoginPage() {
                     },
                   })}
                   type={showPassword ? "text" : "password"}
-                  autoComplete="current-password"
                   className="block w-full px-3 py-2 border border-gray-300 text-gray-900/80 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                   placeholder="••••••••"
                 />
@@ -219,7 +245,6 @@ export default function LoginPage() {
             <div className="flex items-center">
               <input
                 id="remember-me"
-                name="remember-me"
                 type="checkbox"
                 className="h-4 w-4 focus:ring-primary-500 border-gray-300 rounded"
               />

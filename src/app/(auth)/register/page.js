@@ -15,15 +15,21 @@ export default function RegisterPage() {
     handleSubmit,
     watch,
     formState: { errors },
+    setError,
+    clearErrors,
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
 
   const password = watch("password");
 
   const onSubmit = async (data) => {
+    setApiError("");
+    clearErrors();
+
     try {
       setIsLoading(true);
       const registerData = {
@@ -37,14 +43,26 @@ export default function RegisterPage() {
 
       if (response.data.success) {
         toast.success("Registration successful! Please complete your profile.");
-        // Store the token for profile completion
         if (response.data.data?.token) {
           localStorage.setItem("tempToken", response.data.data.token);
         }
         router.push("/complete-profile");
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Registration failed");
+      const errorMessage =
+        error.response?.data?.message ||
+        "Registration failed. Please try again.";
+      setApiError(errorMessage);
+
+      if (error.response?.data?.errors) {
+        const fieldErrors = error.response.data.errors;
+        Object.keys(fieldErrors).forEach((field) => {
+          setError(field, {
+            type: "server",
+            message: fieldErrors[field],
+          });
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -58,6 +76,10 @@ export default function RegisterPage() {
     window.location.href = `${baseUrl}/api/auth/google`;
   };
 
+  const handleInputChange = () => {
+    if (apiError) setApiError("");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -69,6 +91,15 @@ export default function RegisterPage() {
             Join CapDrive today
           </p>
         </div>
+
+        {/* Error Message */}
+        {apiError && (
+          <div className="text-center">
+            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+              {apiError}
+            </p>
+          </div>
+        )}
 
         {/* Google Sign Up Button */}
         <button
@@ -131,7 +162,6 @@ export default function RegisterPage() {
           )}
         </button>
 
-        {/* Divider */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300"></div>
@@ -143,14 +173,15 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="mt-8 space-y-6"
+          onSubmit={handleSubmit(onSubmit)}
+          onChange={handleInputChange}
+        >
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label className="block text-sm font-medium text-gray-700">
                   First Name
                 </label>
                 <input
@@ -169,10 +200,7 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label className="block text-sm font-medium text-gray-700">
                   Last Name
                 </label>
                 <input
@@ -192,10 +220,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label className="block text-sm font-medium text-gray-700">
                 Email address
               </label>
               <input
@@ -218,10 +243,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label className="block text-sm font-medium text-gray-700">
                 Phone Number
               </label>
               <input
@@ -238,10 +260,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label className="block text-sm font-medium text-gray-700">
                 Password
               </label>
               <div className="mt-1 relative">
@@ -277,10 +296,7 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label className="block text-sm font-medium text-gray-700">
                 Confirm Password
               </label>
               <div className="mt-1 relative">
