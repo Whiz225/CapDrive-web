@@ -20,7 +20,12 @@ export default function FavoritesPage() {
     enabled: isAuthenticated,
   });
 
-  if (!isAuthenticated || isLoading) {
+  if (!isAuthenticated) {
+    // return <LoadingSpinner fullScreen />;
+    router.push("/login");
+  }
+
+  if (isLoading) {
     return <LoadingSpinner fullScreen />;
   }
 
