@@ -184,7 +184,7 @@ export default function CarsPage() {
             <select
               value={sort}
               onChange={(e) => handleSortChange(e.target.value)}
-              className="flex-1 sm:flex-none px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="flex-1 sm:flex-none text-gray-900/80 px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500"
             >
               <option value="-createdAt">Newest First</option>
               <option value="createdAt">Oldest First</option>
