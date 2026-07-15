@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 // import SimpleLayout from "../../components/SimpleLayout";
@@ -13,12 +13,21 @@ import { useRouter } from "next/navigation";
 export default function FavoritesPage() {
   const { isAuthenticated } = useAuthStore();
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const { data, isLoading } = useQuery({
     queryKey: ["user-favorites"],
     queryFn: () => userAPI.getFavorites(),
     enabled: isAuthenticated,
   });
+
+  if (!isMounted) {
+    return null;
+  }
 
   if (!isAuthenticated) {
     // return <LoadingSpinner fullScreen />;
